@@ -39,9 +39,9 @@ app.use(express.urlencoded({ extended: true })); // nos permite la codificación
 app.use(logger("dev"));
 
 // Defino las rutas que he importado arriba
-/* app.use("/users", users);
+app.use("/users", users);
 app.use("/colors", colors);
-app.use("/palettes", palettes); */
+app.use("/palettes", palettes);
 
 // Vamos a controlar los errrores si las rutas no coinciden con ninguna que hayamos definido con nuestro servidor
 
@@ -51,6 +51,9 @@ app.use((req, res, next) => {
   err.message = HTTPSTATUSCODE[404];
   next(err);
 });
+
+//OJO!
+app.set("secretKey", "nodeRestApi"); // jwt secret token
 
 // Función que se va a encargar de recibir este error y devovlerlo en un JSON
 app.use((err, req, res, next) => {
